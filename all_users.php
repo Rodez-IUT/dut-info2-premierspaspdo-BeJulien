@@ -25,9 +25,20 @@
 			}
 		?>
 		
+		<h1>All users</h1>
+		
+		Le status_id : 
+		<input type="text" name="status_id" />
+		<br /><br />
 		<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Status</th>
+		</tr>
 		<?php
-			$stmt = $pdo->query('SELECT users.id, username, email, name FROM users JOIN status ON status.id = users.status_id ORDER BY username');
+			$stmt = $pdo->query('SELECT users.id, username, email, name FROM users JOIN status ON status.id = users.status_id WHERE status_id = 2 AND username LIKE "e%" ORDER BY username');
 			while ($row = $stmt->fetch()) {
 				echo '<tr>';
 				echo '<td>' . $row['id'] . '</td>';
