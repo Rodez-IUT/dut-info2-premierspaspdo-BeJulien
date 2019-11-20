@@ -26,6 +26,16 @@
 		?>
 		
 		<h1>All users</h1>
+		<form method="post" action="all_users.php">
+			Start with letter :
+			<input type="text" name="start_letter" />
+			and status is :
+			<select name="account_status">
+				<option value="active">Active account</option>
+				<option value="waiting">Waiting for account validation</option>
+			</select>
+			<input type="submit" value="OK" />
+		</form>
 		<br /><br />
 		<table class="table">
 		<tr>
@@ -34,8 +44,27 @@
 			<th>Email</th>
 			<th>Status</th>
 		</tr>
-		<?php
-			$stmt = $pdo->query('SELECT users.id, username, email, name FROM users JOIN status ON status.id = users.status_id WHERE status_id = 2 AND username LIKE "e%" ORDER BY username');
+		<?php	
+			if (isset($_POST['start_letter']) && isset($_POST['account_status'])) {
+
+				if (strlen($_POST['start_letter']) == 1) {
+					$start_letter = $_POST['start_letter'];
+				} else {
+					$start_letter = "";
+				}
+
+				if (strcmp($_POST['account_status'], "active") == 0) {
+					$account_status = 2;
+				} else {
+					$account_status = 1;
+				}
+
+				$stmt = $pdo->query("SELECT users.id, username, email, name FROM users JOIN status ON status.id = users.status_id WHERE status_id = $account_status AND username LIKE '$start_letter%' ORDER BY username");
+
+			} else {
+				$stmt = $pdo->query("SELECT users.id, username, email, name FROM users JOIN status ON status.id = users.status_id ORDER BY username");
+			}
+
 			while ($row = $stmt->fetch()) {
 				echo '<tr>';
 				echo '<td>' . $row['id'] . '</td>';
