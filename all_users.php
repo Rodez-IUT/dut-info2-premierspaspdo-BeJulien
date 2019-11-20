@@ -26,9 +26,6 @@
 		?>
 		
 		<h1>All users</h1>
-		
-		Le status_id : 
-		<input type="text" name="status_id" />
 		<br /><br />
 		<table class="table">
 		<tr>
