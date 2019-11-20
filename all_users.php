@@ -66,6 +66,7 @@
 			}
 
 			while ($row = $stmt->fetch()) {
+
 				echo '<tr>';
 				echo '<td>' . $row['id'] . '</td>';
 				echo '<td>' . $row['username'] . '</td>';
