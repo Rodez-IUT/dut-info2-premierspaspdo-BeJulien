@@ -33,6 +33,7 @@
 			<select name="account_status">
 				<option value="active">Active account</option>
 				<option value="waiting">Waiting for account validation</option>
+				<option value="deletion">Waiting for account deletion</option>
 			</select>
 			<input type="submit" value="OK" />
 		</form>
@@ -48,7 +49,7 @@
 			if (isset($_POST['start_letter']) && isset($_POST['account_status'])) {
 				$start_letter = strlen($_POST['start_letter']) == 1 ? $_POST['start_letter'] . '%' : '%';
 
-				$account_status = strcmp($_POST['account_status'], "active") == 0 ? 2 : 1;
+				$account_status = strcmp($_POST['account_status'], "active") == 0 ? 2 : (strcmp($_POST['account_status'], "waiting") == 0 ? 1 : 3);
 
 				$stmt = $pdo->prepare("SELECT users.id, username, email, name 
 									   FROM users 
