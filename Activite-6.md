@@ -1,0 +1,1 @@
+Fonctionnement de l'exemple hello_world.php OK
